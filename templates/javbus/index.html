@@ -1,40 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<div class="masonry" id="waterfall" style="width: 145px; height: 12974px; position: relative;">
-<div id="waterfall">
-            {% for item in javbus_list %}
-            <div class="item masonry-brick" >
-                <a class="movie-box" href="https://www.dmmsee.icu/DTT-041">
-                    <div class="photo-frame">
-                        <img title={{ item.title }} src={{ item.thumbimgurl }}>
-                    </div>
-					<div class="photo-info">
-						<span>{{ item.title }}<br>
-						<date>{{item.avnum}}</date> / <date>{{item.release}}</date></span>
-					</div>
-                </a>
-            </div>
-            {% endfor %}
-</div>
-</div>
-    {% if is_paginated %}
-    <div class="pagination">
-        <span class="page-links">
-            {% if page_obj.has_previous %}
-                <a href="/javbus?page={{ page_obj.previous_page_number }}">上一页</a>
-            {% endif %}
-            {% if page_obj.has_next %}
-                <a href="/javbus?page={{ page_obj.next_page_number }}">下一页</a>
-            {% endif %}
-            <span class="page-current">
-                第{{ page_obj.number }}页 ，共{{ page_obj.paginator.num_pages }}页。
-            </span>
-        </span>
+{% extends 'base/base.html' %}
+
+{% block footer %}
+    <div class="row d-sm-none d-inline-flex footer-bar">
+    <div class="col-3 text-center">
+        <a class="btn btn-light trigger-overlay" id="menu"><i class="fa fa-bars"></i></a>
     </div>
-    {%endif%}
-</body>
-</html>
+    <div class="col-3 text-center"></div>
+    <div class="col-3 text-center">
+    <a class="btn btn-default" id="prev" href="/javbus/index?page={{ page_obj.next_page_number }}">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="col-3 text-center">
+        <a class="btn btn-light" id="back" href="javascript:window.history.back()"><i class="fa fa-reply"></i></a>
+    </div>
+    </div>
+{% endblock footer %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="masonry" id="waterfall" style="width: 290px; height: 7050px; position: relative;">
+                <div id="waterfall">
+                    {% for item in movie_list %}
+                        <div class="item masonry-brick">
+                        <a class="movie-box" href="/javbus/{{item.avnum}}">
+                            <div class="photo-frame">
+                                <img title={{item.title}} src={{item.thumbimgurl}}>
+                            </div>
+                            <div class="photo-info">
+                                <span>{{ item.title }}<br>
+                                <date>{{ item.avnum }}</date> / <date>{{item.release}}</date>
+                                </span>
+                            </div>
+                        </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#    {% if is_paginated %}#}
+{#    <div class="pagination">#}
+{#        <span class="page-links">#}
+{#            {% if page_obj.has_previous %}#}
+{#                <a href="/javbus/index?page={{ page_obj.previous_page_number }}">上一页</a>#}
+{#            {% endif %}#}
+{#            {% if page_obj.has_next %}#}
+{#                <a href="/javbus/index?page={{ page_obj.next_page_number }}">下一页</a>#}
+{#            {% endif %}#}
+{#            <span class="page-current">#}
+{#                第{{ page_obj.number }}页 ，共{{ page_obj.paginator.num_pages }}页。#}
+{#            </span>#}
+{#        </span>#}
+{#    </div>#}
+{#    {%endif%}#}
+{% include "base/page_nav.html" %}
+
+
+{% endblock content %}
+
+
+{% block javascript %}
+    <script language="JavaScript">
+    (function($) {
+        $('#waterfall').masonry({
+            itemSelector: ".item",
+            isAnimated: false,
+            isFitWidth: true
+        });
+    })(jQuery);
+    </script>
+{% endblock javascript %}

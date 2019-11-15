@@ -1,0 +1,107 @@
+{% extends 'base/base.html' %}
+
+{% block footer %}
+    <div class="row d-sm-none d-inline-flex footer-bar">
+    <div class="col-3 text-center">
+        <a class="btn btn-light trigger-overlay" id="menu"><i class="fa fa-bars"></i></a>
+    </div>
+    <div class="col-3 text-center"></div>
+    <div class="col-3 text-center"></div>
+    <div class="col-3 text-center">
+        <a class="btn btn-light" id="back" href="javascript:window.history.back()"><i class="fa fa-reply"></i></a>
+    </div>
+</div>
+{% endblock footer %}
+
+{% block content %}
+<div class="container">
+    <h3>{{movie_obj.avnum}} {{ movie_obj.title }}</h3>
+    <div class="row movie">
+        <div class="col-md-9 screencap">
+            <a class="bigImage" href={{movie_obj.coverimgurl}}>
+                <img title={{movie_obj.title}} src={{movie_obj.coverimgurl}}></a>
+        </div>
+        <div class="col-md-3 info">
+            <p><span class="header">识别码:</span> <span style="color:#CC0000;">{{movie_obj.avnum}}</span>
+            </p>
+            <p><span class="header">发行日期:</span> {{movie_obj.release}}</p>
+            <p><span class="header">长度:</span> {{movie_obj.length}}</p>
+            <p>
+                <span class="header">制作商:</span>
+                <a href="">{{movie_obj.producer}}</a>
+            </p>
+            <p>
+                <span class="header">发行商:</span>
+                <a href="">{{movie_obj.publisher}}</a>
+            </p>
+            <p>
+                <span class="header">系列:</span>
+                <a href="">待补充</a>
+            </p>
+            <p class="header">类别</p>
+            <p>
+                {% for item in movie_obj.t_mg.all %}
+                    <span class="genre"><a href="">{{ item.genreid.genrename }},</a></span>
+                {% endfor %}
+            </p>
+            <p class="star-show">
+                <span class="header" style="cursor: pointer;">演员</span>:
+            </p>
+            <p>
+                {% for item in movie_obj.t_ms.all %}
+                <span class="genre">
+					<a href="">{{ item.starid.name }},</a>
+				</span>
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+    <h4 id="mag-submit-show" style="cursor: pointer;">磁力链接</h4>
+    <div class="movie" style="padding:12px; margin-top:15px">
+        <table class="table table-condensed table-striped table-hover" id="magnet-table" style="margin-bottom:0;">
+            <tbody>
+                <tr style="font-weight:bold;">
+                  <td>磁力名称 <i class="fa fa-magnet" aria-hidden="true"></i></td>
+                  <td style="text-align:center;white-space:nowrap">文件大小</td>
+                  <td style="text-align:center;white-space:nowrap">分享日期</td>
+                </tr>
+            </tbody>
+            {% for item in movie_obj.t_magnets.all %}
+            <tr height="35" style="border-top-color: rgb(221, 221, 221);border-top-width: 1px;border-top-style: solid;
+                                    cursor: pointer; background-color: rgb(255, 255, 255);"
+                            onmouseover="this.style.backgroundColor='#F4F9FD';this.style.cursor='pointer';"
+                            onmouseout="this.style.backgroundColor='#FFFFFF'">
+                <td width="70%" onclick="window.open({{item.url}},'_self')">
+                	<a title="鼠标右键点击并选择【复制链接地址】" style="color:#333" href={{ item.url }} rel="nofollow">
+                	{{item.filename}} </a>
+                    <a title="包含高清HD的链接" class="btn btn-mini-new btn-primary disabled">!高清</a>
+                </td>
+                <td style="text-align:center;white-space:nowrap" onclick="window.open({{ item.url }},'_self')">
+                	<a title="鼠标右键点击并选择【复制链接地址】" style="color:#333" href={{ item.url }} rel="nofollow">
+                	{{ item.size }}</a>
+                </td>
+                <td style="text-align:center;white-space:nowrap" onclick="window.open({{ item.url }},'_self')">
+                	<a title="鼠标右键点击并选择【复制链接地址】" style="color:#333" href={{ item.url }} rel="nofollow">
+                	{{ item.addtime }}</a>
+                </td>
+            </tr>
+		    {% endfor %}
+
+			<script type="text/javascript">
+			$('#movie-loading').hide();
+			</script>
+        </table>
+		</div>
+    <h4>样品图片</h4>
+    <div id="sample-waterfall">
+        {% for foo in movie_obj.t_images.all %}
+            <a class="sample-box" href="">
+                <div class="photo-frame">
+                    <img title={{ movie_obj.title }} src={{ foo.imgurl }}>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}

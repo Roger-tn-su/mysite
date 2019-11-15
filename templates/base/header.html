@@ -1,0 +1,76 @@
+{% load static %}
+
+<nav class="navbar navbar-default fixed-top navbar-expand-sm top-bar" style="z-index:900">
+    <div class="container-fluid">
+        <div class="mh50" style="margin-right: -15px; margin-left: -15px;">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">
+            <img height="50" class="d-none d-sm-block" style="height:40px; margin-top:5px;" alt="JavBus" src="{% static 'img/logo.png' %}">
+            <img height="50" class="d-inline-block d-sm-none" alt="JavBus" src="{% static 'img/logo.png' %}">
+        </a>
+        </div>
+        <!-- Toggler/collapsibe Button -->
+{#        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">#}
+{#        <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+        <div class="collapse navbar-collapse" id="navbar">
+         <!-- search form -->
+            <form class="form-inline">
+            <input class="form-control" type="text" placeholder="搜索 识别码, 影片, 演员">
+            <button class="btn btn-success" type="submit">搜索</button>
+        </form>
+            <ul class="nav navbar-nav">
+            <!-- Navbar links -->
+            <li class="active">
+                <a class="nav-link" href="#">有码</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#">无码</a>
+            </li>
+            <li class="d-none d-lg-block">
+                <a class="nav-link" href="#">欧美</a>
+            </li>
+        <!-- dropdown links -->
+            <li class="nav-item dropdown d-none d-md-block">
+              <a class="nav-link dropdown-toggle"
+                 role="button"
+                 aria-expanded="false"
+                 href="#" id="navbardrop1"
+                 data-toggle="dropdown"
+                 data-hover="dropdown">
+                类别
+                  <span class="caret"></span>
+              </a>
+              <div class="dropdown-menu" role="menu">
+                <a class="dropdown-item" href="#">有码类别</a>
+                <a class="dropdown-item" href="#">无码类别</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown d-none d-md-block">
+              <a class="nav-link dropdown-toggle"
+                 href="#" id="navbardrop" data-toggle="dropdown">
+                女优
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">有码女优</a>
+                <a class="dropdown-item" href="#">无码女优</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item d-block d-lg-none" href="#">欧美</a>
+                    <a class="dropdown-item d-block d-md-none" href="#">有码类别</a>
+                    <a class="dropdown-item d-block d-md-none" href="#">无码类别</a>
+                    <a class="dropdown-item d-block d-md-none" href="#">有码女优</a>
+                    <a class="dropdown-item d-block d-md-none" href="#">无码女优</a>
+                    <a class="dropdown-item" href="#">高清</a>
+                    <a class="dropdown-item" href="#">字幕</a>
+                </div>
+            </li>
+        </ul>
+        </div>
+    </div>
+</nav>

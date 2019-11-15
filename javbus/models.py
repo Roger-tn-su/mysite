@@ -6,9 +6,10 @@ from django.db import models
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify,
+#   and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from django.db import models
+
 
 class Genre(models.Model):
     g_id = models.AutoField(primary_key=True)
@@ -22,10 +23,18 @@ class Genre(models.Model):
         managed = False
         db_table = 'genre'
 
+    def __str__(self):
+        return self.genrename
+
 
 class Images(models.Model):
     i_id = models.AutoField(primary_key=True)
-    avnum = models.ForeignKey('Movies', models.DO_NOTHING, db_column='avNum', blank=True, null=True)
+    avnum = models.ForeignKey(on_delete=models.DO_NOTHING,
+                              to='Movies', to_field='avnum',
+                              related_name='t_images',
+                              db_column='avNum',
+                              blank=True,
+                              null=True)
     # Field name made lowercase.
     imgurl = models.TextField(db_column='imgUrl', blank=True, null=True)
     # Field name made lowercase.
@@ -37,9 +46,20 @@ class Images(models.Model):
 
 class MG(models.Model):
     m_g_id = models.AutoField(primary_key=True)
-    avnum = models.ForeignKey('Movies', models.DO_NOTHING, db_column='avNum', blank=True, null=True)
+    avnum = models.ForeignKey(to='Movies',
+                              to_field='avnum',
+                              on_delete=models.DO_NOTHING,
+                              related_name='t_mg',
+                              db_column='avNum',
+                              blank=True,
+                              null=True)
     # Field name made lowercase.
-    genreid = models.ForeignKey(Genre, models.DO_NOTHING, db_column='genreID', blank=True,
+    genreid = models.ForeignKey(to='Genre',
+                                to_field='genreid',
+                                on_delete=models.DO_NOTHING,
+                                related_name='t_mg',
+                                db_column='genreID',
+                                blank=True,
                                 null=True)  # Field name made lowercase.
 
     class Meta:
@@ -50,9 +70,20 @@ class MG(models.Model):
 
 class MS(models.Model):
     m_s_id = models.AutoField(primary_key=True)
-    avnum = models.ForeignKey('Movies', models.DO_NOTHING, db_column='avNum', blank=True, null=True)
+    avnum = models.ForeignKey(to='Movies',
+                              to_field='avnum',
+                              on_delete=models.DO_NOTHING,
+                              related_name='t_ms',
+                              db_column='avNum',
+                              blank=True,
+                              null=True)
     # Field name made lowercase.
-    starid = models.ForeignKey('Stars', models.DO_NOTHING, db_column='starID', blank=True,
+    starid = models.ForeignKey(to='Stars',
+                               to_field='starid',
+                               on_delete=models.DO_NOTHING,
+                               related_name='t_ms',
+                               db_column='starID',
+                               blank=True,
                                null=True)  # Field name made lowercase.
 
     class Meta:
@@ -63,7 +94,13 @@ class MS(models.Model):
 
 class Magnets(models.Model):
     ma_id = models.AutoField(primary_key=True)
-    avnum = models.ForeignKey('Movies', models.DO_NOTHING, db_column='avNum', blank=True, null=True)
+    avnum = models.ForeignKey(to='Movies',
+                              to_field='avnum',
+                              on_delete=models.DO_NOTHING,
+                              related_name='t_magnets',
+                              db_column='avNum',
+                              blank=True,
+                              null=True)
     # Field name made lowercase.
     url = models.TextField(blank=True, null=True)
     filename = models.TextField(blank=True, null=True)

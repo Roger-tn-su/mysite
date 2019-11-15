@@ -1,0 +1,24 @@
+{% load static %}
+
+{% if is_paginated %}
+<div class="container-fluid text-center d-none d-sm-block">
+    <ul class="pagination pagination-lg justify-content-center">
+
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" id="previous" href="/javbus/index?page={{ page_obj.previous_page_number }}">上一页</a>
+        </li>
+        {% endif %}
+        {% for i in page_list %}
+    	<li class="page-item {% if i == page_obj.number %}active{% endif %}">
+            <a class="page-link" href="/javbus/index?page={{ i }}">{{i}}</a>
+        </li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" id="next" href="/javbus/index?page={{ page_obj.next_page_number }}">下一頁</a>
+        </li>
+        {% endif %}
+            </ul>
+</div>
+{% endif %}
